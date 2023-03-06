@@ -1,0 +1,147 @@
+[
+    {
+      "name": "Whiskers",
+      "months": 12,
+      "color": "black"
+    },
+    {
+      "name": "Mittens",
+      "months": 18,
+      "color": "gray"
+    },
+    {
+      "name": "Socks",
+      "months": 6,
+      "color": "white"
+    },
+    {
+      "name": "Fluffy",
+      "months": 9,
+      "color": "orange"
+    },
+    {
+      "name": "Boots",
+      "months": 24,
+      "color": "brown"
+    },
+    {
+      "name": "Simba",
+      "months": 16,
+      "color": "golden"
+    },
+    {
+      "name": "Tiger",
+      "months": 8,
+      "color": "striped"
+    },
+    {
+      "name": "Luna",
+      "months": 10,
+      "color": "gray"
+    },
+    {
+      "name": "Kitty",
+      "months": 7,
+      "color": "white"
+    },
+    {
+      "name": "Felix",
+      "months": 14,
+      "color": "black"
+    },
+    {
+      "name": "Cleo",
+      "months": 11,
+      "color": "calico"
+    },
+    {
+      "name": "Garfield",
+      "months": 22,
+      "color": "orange"
+    },
+    {
+      "name": "Smokey",
+      "months": 5,
+      "color": "gray"
+    },
+    {
+      "name": "Oreo",
+      "months": 13,
+      "color": "black and white"
+    },
+    {
+      "name": "Muffin",
+      "months": 15,
+      "color": "brown"
+    },
+    {
+      "name": "Sassy",
+      "months": 3,
+      "color": "orange"
+    },
+    {
+      "name": "Tux",
+      "months": 20,
+      "color": "black and white"
+    },
+    {
+      "name": "Smudge",
+      "months": 4,
+      "color": "gray"
+    },
+    {
+      "name": "Boo",
+      "months": 17,
+      "color": "white"
+    },
+    {
+      "name": "Shadow",
+      "months": 21,
+      "color": "black"
+    },
+    {
+      "name": "Snowball",
+      "months": 2,
+      "color": "white"
+    },
+    {
+      "name": "Mimi",
+      "months": 19,
+      "color": "calico"
+    },
+    {
+      "name": "Patches",
+      "months": 23,
+      "color": "spotted"
+    },
+    {
+      "name": "Mickey",
+      "months": 25,
+      "color": "black and white"
+    },
+    {
+      "name": "Tigger",
+      "months": 27,
+      "color": "striped"
+    },
+    {
+      "name": "Misty",
+      "months": 29,
+      "color": "gray"
+    },
+    {
+        "name": "Oliver",
+        "months": 14,
+        "color": "gray and white"
+    },
+    {
+        "name": "Molly",
+        "months": 3,
+        "color": "white"
+    },
+    {
+        "name": "Charlie",
+        "months": 18,
+        "color": "orange and white"
+    }
+]
