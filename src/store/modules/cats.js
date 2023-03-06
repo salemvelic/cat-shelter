@@ -5,11 +5,15 @@ export default{
     cats: [],
   },
   getters: {
-    allCats: state => state.cats
+    allCats: state => state.cats,
+    firstFourCats: state => state.cats.length >= 4 ? state.cats.slice(0, 3) : state.cats,
   },
   mutations: {
     SET_CATS(state, cats) {
-      state.cats = cats
+      state.cats = cats.map(cat => {
+        const image = `../assets/img/${cat.name.toLowerCase()}.jpg`;
+        return {...cat, image};
+      }).sort((a, b) => a.months - b.months);
     }
   },
   actions: {

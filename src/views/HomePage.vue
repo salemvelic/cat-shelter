@@ -1,11 +1,15 @@
 <template>
-  <div> Random cat name: {{ getAllCats[2].name }}</div>
+  <HomeCarousel />
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex';
+import HomeCarousel from '../components/HomeCarousel.vue';
 
 export default {
+  components: {
+    HomeCarousel
+  },
   data() {
     return {
       cats: [],

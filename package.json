@@ -36,7 +36,8 @@
       "parser": "@babel/eslint-parser"
     },
     "rules": {
-      "vue/no-confusing-v-for-v-if": "warn"
+      "vue/no-confusing-v-for-v-if": "warn",
+      "vue/block-tag-newline": "warn"
     }
   },
   "browserslist": [
