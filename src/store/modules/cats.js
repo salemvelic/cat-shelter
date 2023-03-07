@@ -6,7 +6,7 @@ export default{
   },
   getters: {
     allCats: state => state.cats,
-    firstFourCats: state => state.cats.length >= 4 ? state.cats.slice(0, 3) : state.cats,
+    firstFourCats: state => state.cats.length >= 4 ? state.cats.slice(0, 4) : state.cats,
   },
   mutations: {
     SET_CATS(state, cats) {

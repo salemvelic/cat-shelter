@@ -1,5 +1,7 @@
 <template>
-  <HomeCarousel />
+  <div class="container">
+    <HomeCarousel />
+  </div>
 </template>
 
 <script>
