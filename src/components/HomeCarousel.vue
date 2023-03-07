@@ -1,17 +1,17 @@
+<!-- eslint-disable vue/html-self-closing -->
 <template>
-  <div class="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img
-          :src="currentCat.image"
-          alt="cat image"
-        >
-        <div class="carousel-caption">
-          <h3>{{ currentCat.name }}</h3>
-        </div>
-      </div>
+  <div
+    class="carousel"
+    @mouseover="stopCarInterval"
+    @mouseleave="setCarInterval"
+  >
+    <div
+      ref="inner"
+      class="carousel-inner"
+      :style="innerStyles"
+    >
       <div
-        v-for="(cat, index) in getAllCats"
+        v-for="(cat, index) in getCats"
         :key="index"
         class="carousel-item"
       >
@@ -24,97 +24,168 @@
         </div>
       </div>
     </div>
-    <a
-      class="carousel-control-prev"
-      href="#"
-      role="button"
-      @click.prevent="prev"
+    <button
+      class="btn-icon carousel-control carousel-control-prev"
+      @click="prevCard"
     >
-      <span
-        class="carousel-control-prev-icon"
-        aria-hidden="true"
-      />
-      <span class="sr-only">Previous</span>
-    </a>
-    <a
-      class="carousel-control-next"
-      href="#"
-      role="button"
-      @click.prevent="next"
+      <chevron-left svg-color="#ff0000" />
+    </button>
+    <button
+      class="btn-icon carousel-control carousel-control-next"
+      @click="nextCard"
     >
-      <span
-        class="carousel-control-next-icon"
-        aria-hidden="true"
-      />
-      <span class="sr-only">Next</span>
-    </a>
+      <chevron-right svg-color="#ff0000" />
+    </button>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import ChevronLeft from './icons/ChevronLeft.vue';
+import ChevronRight from './icons/ChevronRight.vue';
 
 export default {
+  components: { ChevronLeft, ChevronRight },
   data() {
     return {
       cats: [],
-      currentIndex: 1,
-      loading: false,
+      innerStyles: {},
+      step: '',
+      transitioning: false,
+      updateInterval: [],
     };
   },
   computed: {
     ...mapGetters(['firstFourCats']),
-  
-    getAllCats() {
+
+    getCats() {
       return this.firstFourCats;
     },
-
-    currentCat() {
-      return this.getAllCats[this.currentIndex];
-    },
   },
+
   created() {
     this.fetchCats();
   },
+
+  async mounted() {
+    this.setStep();
+    this.resetTranslate();
+    this.setCarInterval();
+    this.cats = await this.firstFourCats;
+  },
+
   methods: {
     ...mapActions(['fetchCats']),
 
-    prev() {
-      this.currentIndex = this.currentIndex > 0 ? this.currentIndex - 1 : this.cats.length - 1;
+    setCarInterval() {
+      this.updateInterval = setInterval(() => {
+      this.nextCard()
+    }, 3000);
     },
-    next() {
-      this.currentIndex = this.currentIndex < this.cats.length - 1 ? this.currentIndex + 1 : 0;
+
+    stopCarInterval() {
+      clearInterval(this.updateInterval);
     },
+
+    setStep() {
+      // const innerWidth = this.$refs.inner.scrollWidth;
+      const innerWidth = 1457;
+      // const totalCards = this.getCats.length;
+      const totalCards = 4;
+      this.step = `${innerWidth / totalCards}px`;
+    },
+
+    nextCard() {
+      if (this.transitioning) return;
+      this.transitioning = true;
+      this.moveLeft();
+      this.afterTransition(() => {
+        const card = this.getCats.shift()
+        this.getCats.push(card)
+        this.resetTranslate()
+        this.transitioning = false
+      })
+    },
+
+    afterTransition (callback) {
+      const listener = () => {
+        callback()
+        this.$refs.inner.removeEventListener('transitionend', listener)
+      }
+      this.$refs.inner.addEventListener('transitionend', listener)
+    },
+    resetTranslate () {
+      this.innerStyles = {
+        transition: 'none',
+        transform: `translateX(-${this.step})`
+      }
+    },
+
+    prevCard() {
+      if (this.transitioning) return
+      this.transitioning = true
+      this.moveRight()
+      this.afterTransition(() => {
+        const card = this.getCats.pop()
+        this.getCats.unshift(card)
+        this.resetTranslate()
+        this.transitioning = false
+      })
+    },
+
+    moveLeft() {
+      this.innerStyles = {
+        transform: `translateX(-${this.step})
+                    translateX(-${this.step})`
+      }
+    },
+
+    moveRight() {
+      this.innerStyles = {
+        transform: `translateX(${this.step})
+                    translateX(-${this.step})`
+      }
+    }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.btn-icon {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
 .carousel {
-  position: relative;
-  margin: auto;
-  width: 80%;
-  height: 300px;
-}
-.carousel-inner {
-  position: relative;
   width: 100%;
-  height: 100%;
-}
-.carousel-item {
-  position: absolute;
-  display: none;
-  transition: opacity 0.6s ease-in-out;
-}
-.carousel-item.active {
-  display: block;
-  opacity: 1;
-}
-.carousel-caption {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  text-align: center;
+  max-width: 1000px;
+  overflow: hidden;
+  position: relative;
+
+  &-inner {
+    display: flex;
+    transition: transform 0.2s;
+  }
+
+  &-item {
+    width: 430px;
+    height: 430px;
+    margin-right: 10px;
+  }
+
+  &-control {
+    position: absolute;
+    top: 50%;
+
+    &-prev {
+      left: 0;
+    }
+
+    &-next {
+      right: 0;
+    }
+  }
 }
 </style>
