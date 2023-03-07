@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import ChevronLeft from './icons/ChevronLeft.vue';
 import ChevronRight from './icons/ChevronRight.vue';
 
@@ -63,10 +63,6 @@ export default {
     },
   },
 
-  created() {
-    this.fetchCats();
-  },
-
   async mounted() {
     this.setStep();
     this.resetTranslate();
@@ -75,8 +71,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchCats']),
-
     setCarInterval() {
       this.updateInterval = setInterval(() => {
       this.nextCard()

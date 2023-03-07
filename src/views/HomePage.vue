@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import HomeCarousel from '../components/HomeCarousel.vue';
 
 export default {
@@ -17,13 +17,6 @@ export default {
       cats: [],
       loading: false,
     };
-  },
-  computed: {
-    ...mapGetters(['allCats']),
-  
-    getAllCats() {
-      return this.allCats;
-    }
   },
   created() {
     this.fetchCats();
