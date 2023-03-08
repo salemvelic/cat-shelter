@@ -2,8 +2,8 @@
 <template>
   <div
     class="carousel"
-    @mouseover="stopCarInterval"
-    @mouseleave="setCarInterval"
+    @mouseover="stopCanInterval"
+    @mouseleave="setCanInterval"
   >
     <div
       ref="inner"
@@ -49,11 +49,11 @@ export default {
   components: { ChevronLeft, ChevronRight },
   data() {
     return {
-      cats: [],
       innerStyles: {},
+      loading: false,
       step: '',
       transitioning: false,
-      updateInterval: [],
+      updateInterval: null,
     };
   },
   computed: {
@@ -64,27 +64,25 @@ export default {
     },
   },
 
-  async mounted() {
-    this.setStep();
+  mounted() {
     this.resetTranslate();
-    this.setCarInterval();
-    this.cats = await this.firstFourCats;
+    this.setCanInterval();
+    this.setStep();
   },
 
   methods: {
-    setCarInterval() {
+    setCanInterval() {
       this.updateInterval = setInterval(() => {
       this.nextCard()
     }, 3000);
     },
 
-    stopCarInterval() {
+    stopCanInterval() {
       clearInterval(this.updateInterval);
     },
 
     setStep() {
-      // const innerWidth = this.$refs.inner.scrollWidth;
-      const innerWidth = 720;
+      const innerWidth = this.$refs.inner.scrollWidth;
       // const totalCards = this.getCats.length;
       const totalCards = 4;
       this.step = `${innerWidth / totalCards}px`;
