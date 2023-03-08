@@ -12,7 +12,7 @@ export default{
     SET_CATS(state, cats) {
       state.cats = cats.map(cat => {
         const image = `../assets/img/${cat.name.toLowerCase()}.jpg`;
-        return {...cat, image};
+        return { ...cat, image };
       }).sort((a, b) => a.months - b.months);
     },
     REMOVE_CAT_BY_ID(state, id) {

@@ -5,14 +5,6 @@ import cats from './modules/cats'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
     cats
   }
