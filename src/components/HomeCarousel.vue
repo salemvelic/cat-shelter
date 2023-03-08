@@ -121,7 +121,7 @@ export default {
     setStep() {
       const innerWidth = this.$refs.inner.scrollWidth;
       const totalCards = this.getCats.length;
-  
+
       // "totalCards * 2" because we want that active card is in the middle
       this.step = `${innerWidth / (totalCards * 2)}px`;
     },
@@ -183,19 +183,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.btn-icon {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  margin: 0;
-}
 .carousel {
   width: 100%;
   max-width: 720px;
   overflow: hidden;
   position: relative;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    width: 360px;
+  }
 
   &-inner {
     display: flex;
@@ -222,9 +219,17 @@ export default {
     opacity: 0.4;
     margin-right: 10px;
 
+    @media (max-width: 768px) {
+        width: 250px;
+    }
+
     img {
       width: 354px;
       object-fit: cover;
+
+      @media (max-width: 768px) {
+        width: 177px;
+      }
     }
     
     .carousel-caption {
@@ -236,6 +241,11 @@ export default {
       border-radius: 4px;
       opacity: 0.7;
       font-size: 36px;
+
+      @media (max-width: 768px) {
+        padding: 5px 10px;
+        font-size: 24px;
+      }
     }
   }
 
