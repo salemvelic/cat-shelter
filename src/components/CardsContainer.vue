@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="d-flex flex-direction-column">
     <div class="edit-container">
       <div class="d-flex flex-direction-column">
         <span class="label-title">Sort by</span>
@@ -8,6 +8,7 @@
             v-model="sortBy"
             type="radio"
             value="name"
+            class="radio-color"
           >
           Name
         </label>
@@ -16,6 +17,7 @@
             v-model="sortBy"
             type="radio"
             value="months"
+            class="radio-color"
           >
           Age
         </label>
@@ -27,6 +29,7 @@
             v-model="sortOrder"
             type="radio"
             value="asc"
+            class="radio-color"
           >
           Ascending
         </label>
@@ -35,6 +38,7 @@
             v-model="sortOrder"
             type="radio"
             value="desc"
+            class="radio-color"
           >
           Descending
         </label>
@@ -88,36 +92,45 @@
         >
       </div>
     </div>
-    <div class="card-container">
-      <div
-        v-for="cat in visibleCats"
-        :key="cat.id"
-        class="card"
-      >
-        <img
-          :src="cat.image"
-          :alt="cat.name"
-          class="card-image"
+    <div
+      v-if="loading"
+      class="spinner-loader align-self-center"
+    ></div>
+    <div v-else>
+      <div class="card-container">
+        <div
+          v-for="cat in visibleCats"
+          :key="cat.id"
+          class="card"
         >
-        <div class="card-content">
-          <h2 class="card-title text-center">
-            {{ cat.name }}
-          </h2>
-          <div class="d-flex justify-content-between">
-            <div>
-              <div>Color: {{ cat.color }}</div>
-              <div>{{ cat.months }} months young</div>
+          <img
+            :src="cat.image"
+            :alt="cat.name"
+            class="card-image"
+          >
+          <div class="card-content">
+            <h2 class="card-title text-center">
+              {{ cat.name }}
+            </h2>
+            <div class="d-flex justify-content-between">
+              <div>
+                <div>Color: {{ cat.color }}</div>
+                <div>{{ cat.months }} months young</div>
+              </div>
+              <button
+                class="btn btn-primary"
+                @click="adoptKitten(cat.id)"
+              >
+                Take me home
+              </button>
             </div>
-            <button
-              class="btn btn-primary"
-              @click="adoptKitten(cat.id)"
-            >
-              Take me home
-            </button>
           </div>
         </div>
       </div>
-      <div v-if="shouldShowButton">
+      <div
+        v-if="shouldShowButton"
+        class="d-flex justify-content-center"
+      >
         <button
           class="show-more-button"
           @click="showAllCats = true"
@@ -135,7 +148,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      loading: false,
+      loading: true,
       searchName: "",
       sortBy: "months",
       sortOrder: "asc",
@@ -176,6 +189,16 @@ export default {
 
       return filteredCats;
     },
+  },
+  watch: {
+    allCats() {
+      if (this.allCats.length > 0) {
+        this.loading = false;
+      }
+    },
+  },
+  mounted() {
+    this.loading = true;
   },
   methods: {
     ...mapActions(['removeCatById']),
@@ -273,7 +296,7 @@ export default {
 .show-more-button {
   border: none;
   background: transparent;
-  color: #007bff;
+  color: #6e52ff;
   cursor: pointer;
   font-size: 18px;
   margin-top: 20px;
@@ -321,5 +344,12 @@ export default {
       z-index: 100;
       background: #6e52ff;
      } 
+}
+.radio-color {
+  accent-color: #6e52ff;
+}
+
+.spinner-loader {
+  margin-top: 20px;
 }
 </style>
