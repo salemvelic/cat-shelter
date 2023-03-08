@@ -1,112 +1,126 @@
 <template>
-  <div class="card-container">
-    <div>
-      <label>
-        <input
-          v-model="sortBy"
-          type="radio"
-          value="name"
-        >
-        Sort by Name
-      </label>
-      <label>
-        <input
-          v-model="sortBy"
-          type="radio"
-          value="months"
-        >
-        Sort by Age
-      </label>
-    </div>
-    <div>
-      <label>
-        <input
-          v-model="sortOrder"
-          type="radio"
-          value="asc"
-        >
-        Ascending
-      </label>
-      <label>
-        <input
-          v-model="sortOrder"
-          type="radio"
-          value="desc"
-        >
-        Descending
-      </label>
-    </div>
-    <div>
-      <label>
-        <input
-          v-model="filters.lessThanSixMonths"
-          type="checkbox"
-        >
-        <span
-          class="custom-checkbox"
-          :class="{ 'checked': filters.lessThanSixMonths }"
-        />
-        Less than 6 months
-      </label>
-      <label>
-        <input
-          v-model="filters.lessThanTwelveMonths"
-          type="checkbox"
-        >
-        <span
-          class="custom-checkbox"
-          :class="{ 'checked': filters.lessThanTwelveMonths }"
-        />
-        Less than 12 months
-      </label>
-      <label>
-        <input
-          v-model="filters.blackColor"
-          type="checkbox"
-        >
-        <span
-          class="custom-checkbox"
-          :class="{ 'checked': filters.blackColor }"
-        />
-        Black color
-      </label>
-      <label>
-        Search:
+  <section>
+    <div class="edit-container">
+      <div class="d-flex flex-direction-column">
+        <span class="label-title">Sort by</span>
+        <label>
+          <input
+            v-model="sortBy"
+            type="radio"
+            value="name"
+          >
+          Name
+        </label>
+        <label>
+          <input
+            v-model="sortBy"
+            type="radio"
+            value="months"
+          >
+          Age
+        </label>
+      </div>
+      <div class="d-flex flex-direction-column">
+        <span class="label-title">Way of sorting</span>
+        <label>
+          <input
+            v-model="sortOrder"
+            type="radio"
+            value="asc"
+          >
+          Ascending
+        </label>
+        <label>
+          <input
+            v-model="sortOrder"
+            type="radio"
+            value="desc"
+          >
+          Descending
+        </label>
+      </div>
+      <div class="d-flex flex-direction-column">
+        <span class="label-title">Filter by</span>
+        <ul>
+          <li class="checkbox">
+            <input
+              id="check1"
+              v-model="filters.lessThanSixMonths"
+              class="checkbox-pop"
+              type="checkbox"
+            >
+            <label
+              for="check1"
+              :class="{ 'checked': filters.lessThanSixMonths }"
+            ><span />Less than 6 months</label>
+          </li>
+          <li class="checkbox">
+            <input
+              id="check2"
+              v-model="filters.lessThanTwelveMonths"
+              class="checkbox-pop"
+              type="checkbox"
+            >
+            <label
+              for="check2"
+              :class="{ 'checked': filters.lessThanTwelveMonths }"
+            ><span />Less than 12 months</label>
+          </li>
+          <li class="checkbox">
+            <input
+              id="check3"
+              v-model="filters.blackColor"
+              class="checkbox-pop"
+              type="checkbox"
+            >
+            <label
+              for="check3"
+              :class="{ 'checked': filters.blackColor }"
+            ><span />Black color</label>
+          </li>
+        </ul>
+      </div>
+      <div class="search-wrapper">
+        <!-- <label>Search</label> -->
         <input
           v-model="searchName"
           type="text"
+          placeholder="Search cat by name"
         >
-      </label>
-    </div>
-
-    <div
-      v-for="cat in visibleCats"
-      :key="cat.id"
-      class="card"
-    >
-      <img
-        :src="cat.image"
-        :alt="cat.name"
-        class="card-image"
-      >
-      <div class="card-content">
-        <h2 class="card-title">
-          {{ cat.name }}
-        </h2>
-        <div>Color: {{ cat.color }}</div>
-        <div>{{ cat.months }} months young</div>
-        <button @click="removeCat(cat.id)">Take me home</button>
       </div>
     </div>
-    <div v-if="shouldShowButton">
-      <button
-        class="show-more-button"
-        @click="showAllCats = true"
+    <div class="card-container">
+      <div
+        v-for="cat in visibleCats"
+        :key="cat.id"
+        class="card"
       >
-        Show more
-      </button>
+        <img
+          :src="cat.image"
+          :alt="cat.name"
+          class="card-image"
+        >
+        <div class="card-content">
+          <h2 class="card-title">
+            {{ cat.name }}
+          </h2>
+          <div>Color: {{ cat.color }}</div>
+          <div>{{ cat.months }} months young</div>
+          <button @click="removeCat(cat.id)">
+            Take me home
+          </button>
+        </div>
+      </div>
+      <div v-if="shouldShowButton">
+        <button
+          class="show-more-button"
+          @click="showAllCats = true"
+        >
+          Show more
+        </button>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -187,6 +201,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.search-wrapper {
+  display: flex;
+  align-items: center;
+
+  input {
+    background-color: #f9f9f9;
+    height: 30px;
+    width: 320px;
+    border-radius: 15px;
+    padding-left: 10px;
+  }
+}
+.edit-container {
+  display: flex;
+  column-gap: 20px;
+  margin-top: 30px;
+  padding: 15px 30px 0 30px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.label-title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -230,5 +269,45 @@ export default {
   &:hover {
     text-decoration: underline;
   }
+}
+
+.checkbox {
+  margin-bottom: 10px;
+}
+@keyframes pop {
+  0% { opacity:0; }
+  75% {opacity:1; }
+  100% { transform: scale(1.2); }
+}
+.checkbox-pop {
+    display:none;
+}
+.checkbox-pop + label span {
+    display:inline-block;
+    width:25px;
+    height:19px;
+    margin: 0 5px -4px 0; /*layout relationship between check and label*/
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      width: 1rem;
+      height: 1rem;
+      background: transparent;
+      border: 2px solid #FF4040; 
+    }
+     &:after {
+      z-index: 0;
+      border: none;
+    }
+}
+
+.checkbox-pop:checked + label span {
+  &:before {
+      animation: pop .3s ease;
+      z-index: 100;
+      background: #FF4040;
+     } 
 }
 </style>
