@@ -36,6 +36,48 @@
         Descending
       </label>
     </div>
+    <div>
+      <label>
+        <input
+          v-model="filters.lessThanSixMonths"
+          type="checkbox"
+        >
+        <span
+          class="custom-checkbox"
+          :class="{ 'checked': filters.lessThanSixMonths }"
+        />
+        Less than 6 months
+      </label>
+      <label>
+        <input
+          v-model="filters.lessThanTwelveMonths"
+          type="checkbox"
+        >
+        <span
+          class="custom-checkbox"
+          :class="{ 'checked': filters.lessThanTwelveMonths }"
+        />
+        Less than 12 months
+      </label>
+      <label>
+        <input
+          v-model="filters.blackColor"
+          type="checkbox"
+        >
+        <span
+          class="custom-checkbox"
+          :class="{ 'checked': filters.blackColor }"
+        />
+        Black color
+      </label>
+      <label>
+        Search:
+        <input
+          v-model="searchName"
+          type="text"
+        >
+      </label>
+    </div>
 
     <div
       v-for="cat in visibleCats"
@@ -53,6 +95,7 @@
         </h2>
         <div>Color: {{ cat.color }}</div>
         <div>{{ cat.months }} months young</div>
+        <button @click="removeCat(cat.id)">Take me home</button>
       </div>
     </div>
     <div v-if="shouldShowButton">
@@ -67,15 +110,21 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
     return {
       loading: false,
+      searchName: "",
       sortBy: "months",
       sortOrder: "asc",
       showAllCats: false,
+      filters: {
+        lessThanSixMonths: false,
+        lessThanTwelveMonths: false,
+        blackColor: false,
+      },
     };
   },
   computed: {
@@ -86,30 +135,53 @@ export default {
     },
 
     visibleCats() {
-      return this.showAllCats ? this.sortCats() : this.sortCats().slice(0, 20);
+      // Copy the cats array so we don't mutate it
+      let filteredCats = this.showAllCats ? [...this.allCats] : [...this.allCats].slice(0, 20);
+
+      // Filter by lessThanSixMonths, lessThanTwelveMonths or blackColor value
+      filteredCats = filteredCats.filter(cat => {
+        return (!this.filters.lessThanSixMonths || cat.months < 6) &&
+        (!this.filters.lessThanTwelveMonths || cat.months < 12) &&
+        (!this.filters.blackColor || cat.color === 'black')
+      });
+
+      // Filter by name based on the value of searchName
+      if (this.searchName.length > 1) {
+        filteredCats = filteredCats.filter(cat => {
+          return cat.name.toLowerCase().includes(this.searchName.toLowerCase());
+        });
+      }
+
+      filteredCats = this.sortCats(filteredCats);
+
+      return filteredCats;
     },
   },
   methods: {
-    sortCats() {
-      // Copy the cats array so we don't mutate it
-      const sortedCats = [...this.allCats];
+    ...mapActions(['removeCatById']),
+
+    removeCat(id) {
+      this.removeCatById(id);
+    },
+
+    sortCats(filteredCats) {
 
       // Sort by name or age, depending on the value of sortBy
-      sortedCats.sort((a, b) => {
-        if (this.sortBy === "name") {
-          return a.name.localeCompare(b.name);
-        } else {
-          return a.months - b.months;
-        }
+      filteredCats.sort((a, b) => {
+        return this.sortBy === "name"
+          ? a.name.localeCompare(b.name)
+          : a.months - b.months
       });
 
       // Reverse the array if sortOrder is 'desc'
       if (this.sortOrder === "desc") {
-        sortedCats.reverse();
+        filteredCats.reverse();
       }
 
-      return sortedCats;
+      return filteredCats;
     },
+
+    removeKitten() {},
   }
 }
 </script>
