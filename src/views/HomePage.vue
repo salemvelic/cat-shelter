@@ -15,12 +15,6 @@ export default {
     HomeCarousel,
     CardsContainer
   },
-  data() {
-    return {
-      cats: [],
-      loading: false,
-    };
-  },
   created() {
     this.fetchCats();
   },
