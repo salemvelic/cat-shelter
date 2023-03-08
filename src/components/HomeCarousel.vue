@@ -13,6 +13,7 @@
       <div
         v-for="(cat, index) in getCats"
         :key="index"
+        :class="{ active: index === 1 }"
         class="carousel-item"
       >
         <img
@@ -83,7 +84,7 @@ export default {
 
     setStep() {
       // const innerWidth = this.$refs.inner.scrollWidth;
-      const innerWidth = 1457;
+      const innerWidth = 720;
       // const totalCards = this.getCats.length;
       const totalCards = 4;
       this.step = `${innerWidth / totalCards}px`;
@@ -94,51 +95,51 @@ export default {
       this.transitioning = true;
       this.moveLeft();
       this.afterTransition(() => {
-        const card = this.getCats.shift()
-        this.getCats.push(card)
-        this.resetTranslate()
-        this.transitioning = false
-      })
+        const card = this.getCats.shift();
+        this.getCats.push(card);
+        this.resetTranslate();
+        this.transitioning = false;
+      });
     },
 
     afterTransition (callback) {
       const listener = () => {
         callback()
         this.$refs.inner.removeEventListener('transitionend', listener)
-      }
-      this.$refs.inner.addEventListener('transitionend', listener)
+      };
+      this.$refs.inner.addEventListener('transitionend', listener);
     },
     resetTranslate () {
       this.innerStyles = {
         transition: 'none',
         transform: `translateX(-${this.step})`
-      }
+      };
     },
 
     prevCard() {
-      if (this.transitioning) return
-      this.transitioning = true
-      this.moveRight()
+      if (this.transitioning) return;
+      this.transitioning = true;
+      this.moveRight();
       this.afterTransition(() => {
-        const card = this.getCats.pop()
-        this.getCats.unshift(card)
-        this.resetTranslate()
-        this.transitioning = false
-      })
+        const card = this.getCats.pop();
+        this.getCats.unshift(card);
+        this.resetTranslate();
+        this.transitioning = false;
+      });
     },
 
     moveLeft() {
       this.innerStyles = {
         transform: `translateX(-${this.step})
                     translateX(-${this.step})`
-      }
+      };
     },
 
     moveRight() {
       this.innerStyles = {
         transform: `translateX(${this.step})
                     translateX(-${this.step})`
-      }
+      };
     }
   }
 }
@@ -154,19 +155,41 @@ export default {
 }
 .carousel {
   width: 100%;
-  max-width: 1000px;
+  max-width: 720px;
   overflow: hidden;
   position: relative;
+  margin-top: 100px;
 
   &-inner {
     display: flex;
     transition: transform 0.2s;
+
+    .active {
+      opacity: 1;
+    }
   }
 
   &-item {
-    width: 430px;
-    height: 430px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 500px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    opacity: 0.4;
     margin-right: 10px;
+
+    img {
+      width: 354px;
+      height: 244px;
+    }
+    
+    .carousel-caption {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
   }
 
   &-control {
