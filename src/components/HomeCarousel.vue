@@ -1,49 +1,56 @@
 <!-- eslint-disable vue/html-self-closing -->
 <template>
-  <div
-    class="carousel"
-    @mouseover="stopCanInterval"
-    @mouseleave="setCanInterval"
-  >
+  <div class="d-flex justify-content-center">
     <div
-      ref="inner"
-      class="carousel-inner"
-      :style="innerStyles"
+      v-if="loading"
+      class="spinner-loader"
+    ></div>
+    <div
+      v-else
+      class="carousel"
+      @mouseover="stopCanInterval"
+      @mouseleave="setCanInterval"
     >
       <div
-        v-for="(cat, index) in getCats"
-        :key="index"
-        :class="{ active: index === 1 }"
-        class="carousel-item"
-        @click="handleItemClick(index, cat)"
+        ref="inner"
+        class="carousel-inner"
+        :style="innerStyles"
       >
-        <img
-          :src="cat.image"
-          alt="cat image"
+        <div
+          v-for="(cat, index) in getCats"
+          :key="index"
+          :class="{ active: index === 1 }"
+          class="carousel-item"
+          @click="handleItemClick(index, cat)"
         >
-        <div class="carousel-caption">
-          {{ cat.name }}
+          <img
+            :src="cat.image"
+            alt="cat image"
+          >
+          <div class="carousel-caption">
+            {{ cat.name }}
+          </div>
         </div>
       </div>
+      <button
+        class="btn-icon carousel-control carousel-control-prev"
+        @click="prevCard"
+      >
+        <chevron-left svg-color="#6e52ff" />
+      </button>
+      <button
+        class="btn-icon carousel-control carousel-control-next"
+        @click="nextCard"
+      >
+        <chevron-right svg-color="#6e52ff" />
+      </button>
+      <modal-cat-info
+        v-model="showModal"
+        :value="showModal"
+        :selected-cat="selectedCat"
+      >
+      </modal-cat-info>
     </div>
-    <button
-      class="btn-icon carousel-control carousel-control-prev"
-      @click="prevCard"
-    >
-      <chevron-left svg-color="#6e52ff" />
-    </button>
-    <button
-      class="btn-icon carousel-control carousel-control-next"
-      @click="nextCard"
-    >
-      <chevron-right svg-color="#6e52ff" />
-    </button>
-    <modal-cat-info
-      v-model="showModal"
-      :value="showModal"
-      :selected-cat="selectedCat"
-    >
-    </modal-cat-info>
   </div>
 </template>
 
@@ -58,7 +65,7 @@ export default {
   data() {
     return {
       innerStyles: {},
-      loading: false,
+      loading: true,
       showModal: false,
       selectedCat: {},
       step: '',
@@ -66,6 +73,7 @@ export default {
       updateInterval: null,
     };
   },
+
   computed: {
     ...mapGetters(['firstFourCats']),
 
@@ -74,10 +82,23 @@ export default {
     },
   },
 
+  watch: {
+    firstFourCats() {
+      if (this.firstFourCats.length > 0) {
+        this.loading = false;
+
+        // Ensure that the DOM has been updated 
+        // before accessing the scrollWidth property
+        this.$nextTick(() => {
+          this.setStep();
+        });
+      }
+    },
+  },
+
   mounted() {
     this.resetTranslate();
     this.setCanInterval();
-    this.setStep();
   },
 
   methods: {
@@ -89,8 +110,8 @@ export default {
     },
     setCanInterval() {
       this.updateInterval = setInterval(() => {
-      this.nextCard()
-    }, 3000);
+        this.nextCard()
+      }, 3000);
     },
 
     stopCanInterval() {
@@ -227,6 +248,22 @@ export default {
     &-next {
       right: 0;
     }
+  }
+}
+
+.spinner-loader {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  border-top-color: #6e52ff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 </style>
