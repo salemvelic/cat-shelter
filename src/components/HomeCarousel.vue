@@ -15,6 +15,7 @@
         :key="index"
         :class="{ active: index === 1 }"
         class="carousel-item"
+        @click="handleItemClick(index, cat)"
       >
         <img
           :src="cat.image"
@@ -37,6 +38,12 @@
     >
       <chevron-right svg-color="#ff0000" />
     </button>
+    <modal-cat-info
+      v-model="showModal"
+      :value="showModal"
+      :selected-cat="selectedCat"
+    >
+    </modal-cat-info>
   </div>
 </template>
 
@@ -44,13 +51,16 @@
 import { mapGetters } from 'vuex';
 import ChevronLeft from './icons/ChevronLeft.vue';
 import ChevronRight from './icons/ChevronRight.vue';
+import ModalCatInfo from './ModalCatInfo.vue';
 
 export default {
-  components: { ChevronLeft, ChevronRight },
+  components: { ChevronLeft, ChevronRight, ModalCatInfo },
   data() {
     return {
       innerStyles: {},
       loading: false,
+      showModal: false,
+      selectedCat: {},
       step: '',
       transitioning: false,
       updateInterval: null,
@@ -71,6 +81,12 @@ export default {
   },
 
   methods: {
+    handleItemClick(index, cat) {
+      if(index === 1) {
+        this.selectedCat = cat;
+        this.showModal = true;
+      }
+    },
     setCanInterval() {
       this.updateInterval = setInterval(() => {
       this.nextCard()
@@ -160,10 +176,15 @@ export default {
 
   &-inner {
     display: flex;
-    transition: transform 0.2s;
+    transition: transform 0.3s;
 
     .active {
       opacity: 1;
+
+      &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+      }
     }
   }
 
@@ -180,7 +201,7 @@ export default {
 
     img {
       width: 354px;
-      height: 244px;
+      object-fit: cover;
     }
     
     .carousel-caption {
