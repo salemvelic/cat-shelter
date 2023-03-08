@@ -133,7 +133,7 @@
       >
         <button
           class="show-more-button"
-          @click="showAllCats = true"
+          @click="showMoreResetFilters"
         >
           Show more
         </button>
@@ -225,7 +225,17 @@ export default {
       return filteredCats;
     },
 
-    removeKitten() {},
+    showMoreResetFilters() {
+      this.showAllCats = true;
+  
+      this.filters = {
+        lessThanSixMonths: false,
+        lessThanTwelveMonths: false,
+        blackColor: false,
+      };
+      this.sortBy = "months";
+      this.sortOrder = "asc";
+    },
   }
 }
 </script>
