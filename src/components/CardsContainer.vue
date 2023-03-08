@@ -80,7 +80,7 @@
             <label
               for="check3"
               :class="{ 'checked': filters.blackColor }"
-            ><span />Black color</label>
+            ><span />Color is black</label>
           </li>
         </ul>
       </div>
