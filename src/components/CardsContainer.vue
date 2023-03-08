@@ -298,7 +298,7 @@ export default {
       width: 1rem;
       height: 1rem;
       background: transparent;
-      border: 2px solid #FF4040; 
+      border: 2px solid #6e52ff; 
     }
      &:after {
       z-index: 0;
@@ -310,7 +310,7 @@ export default {
   &:before {
       animation: pop .3s ease;
       z-index: 100;
-      background: #FF4040;
+      background: #6e52ff;
      } 
 }
 </style>

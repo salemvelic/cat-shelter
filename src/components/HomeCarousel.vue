@@ -30,13 +30,13 @@
       class="btn-icon carousel-control carousel-control-prev"
       @click="prevCard"
     >
-      <chevron-left svg-color="#ff0000" />
+      <chevron-left svg-color="#6e52ff" />
     </button>
     <button
       class="btn-icon carousel-control carousel-control-next"
       @click="nextCard"
     >
-      <chevron-right svg-color="#ff0000" />
+      <chevron-right svg-color="#6e52ff" />
     </button>
     <modal-cat-info
       v-model="showModal"
