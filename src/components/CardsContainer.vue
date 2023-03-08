@@ -81,7 +81,6 @@
         </ul>
       </div>
       <div class="search-wrapper">
-        <!-- <label>Search</label> -->
         <input
           v-model="searchName"
           type="text"
@@ -212,10 +211,14 @@ export default {
   display: flex;
   align-items: center;
 
+  @media (max-width: 768px) {
+      width: 100%;
+  }
+
   input {
     background-color: #f9f9f9;
     height: 30px;
-    width: 320px;
+    width: 273px;
     border-radius: 15px;
     padding-left: 10px;
   }
@@ -224,9 +227,10 @@ export default {
   display: flex;
   column-gap: 20px;
   margin-top: 30px;
-  padding: 15px 30px 0 30px;
+  padding: 15px 30px;
   background-color: #fff;
   border-radius: 20px;
+  flex-wrap: wrap;
 }
 
 .label-title {
