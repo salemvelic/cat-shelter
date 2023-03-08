@@ -43,10 +43,10 @@ export default {
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 15px;
   margin: 0 auto;
-  max-width: 960px;
-  padding: 20px;
+  padding-top: 20px;
 }
 
 .card {
@@ -60,14 +60,14 @@ export default {
 
 .card img {
   display: block;
-  height: 150px;
+  height: 200px;
   object-fit: cover;
   width: 100%;
 }
 
 .card-text {
   padding: 20px;
-  height: 100px;
+  height: 80px;
 }
 
 .card-text h3 {
@@ -78,25 +78,5 @@ export default {
 .card-text p {
   font-size: 16px;
   line-height: 1.5;
-}
-
-@media only screen and (min-width: 576px) {
-  .card {
-    margin-right: 20px;
-  }
-
-  .card:last-child {
-    margin-right: 0;
-  }
-
-  .card:nth-child(5n) {
-    margin-right: 0;
-  }
-}
-
-@media only screen and (max-width: 575px) {
-  .card {
-    margin-right: 0;
-  }
 }
 </style>
