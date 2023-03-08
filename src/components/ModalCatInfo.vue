@@ -73,57 +73,12 @@ export default {
 };
 </script>
   
-  <style lang="scss" scoped>
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
+<style lang="scss" scoped>
+.btn-close {
+  justify-self: end;
 
-    &-background {
-      position: absolute;
-      z-index: -1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    &-content {
-      display: grid;
-      position: relative;
-      width: 600px;
-      max-height: 80%;
-      padding: 20px;
-      background-color: #fff;
-      overflow: auto;
-      border-radius: 4px;
-
-      @media (max-width: 768px) {
-        width: 100%;
-        border-radius: 0;
-      }
-
-      &-details {
-        font-size: 20px;
-        margin: 8px 0;
-      }
-    }
+  &:hover {
+    font-weight: 600;
   }
-  
-  .modal.is-active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .btn-close {
-    justify-self: end;
-  }
-  </style>
+}
+</style>
