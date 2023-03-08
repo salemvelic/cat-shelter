@@ -56,7 +56,7 @@
             <label
               for="check1"
               :class="{ 'checked': filters.lessThanSixMonths }"
-            ><span />Less than 6 months</label>
+            ><span />Younger than 6 months</label>
           </li>
           <li class="checkbox">
             <input
@@ -68,7 +68,7 @@
             <label
               for="check2"
               :class="{ 'checked': filters.lessThanTwelveMonths }"
-            ><span />Less than 12 months</label>
+            ><span />Younger than 12 months</label>
           </li>
           <li class="checkbox">
             <input
