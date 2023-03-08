@@ -172,7 +172,7 @@ export default {
   max-width: 720px;
   overflow: hidden;
   position: relative;
-  margin-top: 100px;
+  margin: 0 auto;
 
   &-inner {
     display: flex;
