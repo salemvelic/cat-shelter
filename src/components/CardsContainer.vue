@@ -101,17 +101,21 @@
           class="card-image"
         >
         <div class="card-content">
-          <h2 class="card-title">
+          <h2 class="card-title text-center">
             {{ cat.name }}
           </h2>
-          <div>Color: {{ cat.color }}</div>
-          <div>{{ cat.months }} months young</div>
-          <button
-            class="btn btn-primary"
-            @click="adoptKitten(cat.id)"
-          >
-            Take me home
-          </button>
+          <div class="d-flex justify-content-between">
+            <div>
+              <div>Color: {{ cat.color }}</div>
+              <div>{{ cat.months }} months young</div>
+            </div>
+            <button
+              class="btn btn-primary"
+              @click="adoptKitten(cat.id)"
+            >
+              Take me home
+            </button>
+          </div>
         </div>
       </div>
       <div v-if="shouldShowButton">
@@ -257,7 +261,8 @@ export default {
   }
 
   &-title {
-    margin: 0 10px;
+    margin-top: 0;
+    margin-bottom: 12px;
   }
 }
 

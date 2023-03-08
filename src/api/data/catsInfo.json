@@ -81,7 +81,7 @@
     "id": 14,
     "name": "Oreo",
     "months": 13,
-    "color": "black and white"
+    "color": "black"
   },
   {
     "id": 15,
@@ -141,7 +141,7 @@
     "id": 24,
     "name": "Mickey",
     "months": 25,
-    "color": "black and white"
+    "color": "black"
   },
   {
     "id": 25,
@@ -159,7 +159,7 @@
     "id": 27,
     "name": "Oliver",
     "months": 14,
-    "color": "gray and white"
+    "color": "gray"
   },
   {
     "id": 28,
@@ -171,6 +171,6 @@
     "id": 29,
     "name": "Charlie",
     "months": 18,
-    "color": "orange and white"
+    "color": "orange"
   }
 ]
