@@ -8,10 +8,14 @@
       <img
         :src="cat.image"
         :alt="cat.name"
+        class="card-image"
       >
-      <div class="card-text">
-        <h3>{{ cat.name }}</h3>
-        <p>{{ cat.months }}</p>
+      <div class="card-content">
+        <h2 class="card-title">
+          {{ cat.name }}
+        </h2>
+        <div>Color: {{ cat.color }}</div>
+        <div>{{ cat.months }} months young</div>
       </div>
     </div>
   </div>
@@ -44,39 +48,31 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
-  margin: 0 auto;
-  padding-top: 20px;
+  gap: 25px;
+  margin-top: 30px;
 }
 
 .card {
   border-radius: 10px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
   max-width: 300px;
+  width: 100%;
   overflow: hidden;
-  width: 100%;
-}
 
-.card img {
-  display: block;
-  height: 200px;
-  object-fit: cover;
-  width: 100%;
-}
+  &-image {
+    display: block;
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+  }
 
-.card-text {
-  padding: 20px;
-  height: 80px;
-}
+  &-content {
+    padding: 20px;
+    height: 80px;
+  }
 
-.card-text h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.card-text p {
-  font-size: 16px;
-  line-height: 1.5;
+  &-title {
+    margin: 0 10px;
+  }
 }
 </style>
