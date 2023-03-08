@@ -48,6 +48,10 @@
     z-index: 0;
     border: none;
   }
+
+  &:hover::before {
+    background-color: #6e52ff;
+  }
 }
 
 .checkbox-pop:checked + label span {
@@ -55,7 +59,7 @@
     animation: pop .3s ease;
     z-index: 100;
     background: #6e52ff;
-  } 
+  }
 }
 
 .radio-color {
