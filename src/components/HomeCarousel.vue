@@ -91,13 +91,13 @@ export default {
         // before accessing the scrollWidth property
         this.$nextTick(() => {
           this.setStep();
+          this.resetTranslate();
         });
       }
     },
   },
 
   mounted() {
-    this.resetTranslate();
     this.setCanInterval();
   },
 
@@ -120,9 +120,10 @@ export default {
 
     setStep() {
       const innerWidth = this.$refs.inner.scrollWidth;
-      // const totalCards = this.getCats.length;
-      const totalCards = 4;
-      this.step = `${innerWidth / totalCards}px`;
+      const totalCards = this.getCats.length;
+  
+      // "totalCards * 2" because we want that active card is in the middle
+      this.step = `${innerWidth / (totalCards * 2)}px`;
     },
 
     nextCard() {
@@ -144,6 +145,7 @@ export default {
       };
       this.$refs.inner.addEventListener('transitionend', listener);
     },
+
     resetTranslate () {
       this.innerStyles = {
         transition: 'none',
