@@ -163,8 +163,9 @@ export default {
   computed: {
     ...mapGetters(["allCats"]),
 
+    // If there is more than 20 cats and also there is no other filter or search active show button
     shouldShowButton() {
-      return this.allCats.length > 20 && !this.showAllCats;
+      return this.allCats.length > 20 && !this.showAllCats && this.searchName.length < 2 && Object.values(this.filters).every(value => value === false);
     },
 
     visibleCats() {
