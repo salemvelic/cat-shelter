@@ -106,7 +106,10 @@
           </h2>
           <div>Color: {{ cat.color }}</div>
           <div>{{ cat.months }} months young</div>
-          <button @click="removeCat(cat.id)">
+          <button
+            class="btn btn-primary"
+            @click="adoptKitten(cat.id)"
+          >
             Take me home
           </button>
         </div>
@@ -174,7 +177,7 @@ export default {
   methods: {
     ...mapActions(['removeCatById']),
 
-    removeCat(id) {
+    adoptKitten(id) {
       this.removeCatById(id);
     },
 

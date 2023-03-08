@@ -36,3 +36,37 @@ ul {
 .flex-direction-column {
   flex-direction: column;
 }
+
+.align-self-center {
+  align-self: center;
+}
+
+.btn {
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 6px;
+
+  &-primary {
+    color: #fff;
+    background-color: #6e52ff;
+    border-color: #6e52ff;
+
+    &:hover {
+      background-color: #4825ff;
+      border-color: #4825ff;
+    }
+  }
+}
+
+.btn-icon {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.tw-bold {
+  font-weight: 600;
+}
