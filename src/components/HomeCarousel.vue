@@ -22,7 +22,7 @@
           alt="cat image"
         >
         <div class="carousel-caption">
-          <h3>{{ cat.name }}</h3>
+          {{ cat.name }}
         </div>
       </div>
     </div>
@@ -205,9 +205,14 @@ export default {
     }
     
     .carousel-caption {
+      background-color: #6e52ff;
+      color: #fff;
       position: absolute;
       top: 50%;
-      left: 50%;
+      padding: 10px 20px;
+      border-radius: 4px;
+      opacity: 0.7;
+      font-size: 36px;
     }
   }
 
