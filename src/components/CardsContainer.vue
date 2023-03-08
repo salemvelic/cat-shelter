@@ -1,7 +1,44 @@
 <template>
   <div class="card-container">
+    <div>
+      <label>
+        <input
+          v-model="sortBy"
+          type="radio"
+          value="name"
+        >
+        Sort by Name
+      </label>
+      <label>
+        <input
+          v-model="sortBy"
+          type="radio"
+          value="months"
+        >
+        Sort by Age
+      </label>
+    </div>
+    <div>
+      <label>
+        <input
+          v-model="sortOrder"
+          type="radio"
+          value="asc"
+        >
+        Ascending
+      </label>
+      <label>
+        <input
+          v-model="sortOrder"
+          type="radio"
+          value="desc"
+        >
+        Descending
+      </label>
+    </div>
+
     <div
-      v-for="cat in getCats"
+      v-for="cat in visibleCats"
       :key="cat.id"
       class="card"
     >
@@ -18,27 +55,61 @@
         <div>{{ cat.months }} months young</div>
       </div>
     </div>
+    <div v-if="shouldShowButton">
+      <button
+        class="show-more-button"
+        @click="showAllCats = true"
+      >
+        Show more
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
-      cats: [],
       loading: false,
+      sortBy: "months",
+      sortOrder: "asc",
+      showAllCats: false,
     };
   },
   computed: {
-    ...mapGetters(['allCats']),
+    ...mapGetters(["allCats"]),
 
-    getCats() {
-      return this.allCats;
+    shouldShowButton() {
+      return this.allCats.length > 20 && !this.showAllCats;
+    },
+
+    visibleCats() {
+      return this.showAllCats ? this.sortCats() : this.sortCats().slice(0, 20);
     },
   },
   methods: {
+    sortCats() {
+      // Copy the cats array so we don't mutate it
+      const sortedCats = [...this.allCats];
+
+      // Sort by name or age, depending on the value of sortBy
+      sortedCats.sort((a, b) => {
+        if (this.sortBy === "name") {
+          return a.name.localeCompare(b.name);
+        } else {
+          return a.months - b.months;
+        }
+      });
+
+      // Reverse the array if sortOrder is 'desc'
+      if (this.sortOrder === "desc") {
+        sortedCats.reverse();
+      }
+
+      return sortedCats;
+    },
   }
 }
 </script>
@@ -73,6 +144,19 @@ export default {
 
   &-title {
     margin: 0 10px;
+  }
+}
+
+.show-more-button {
+  border: none;
+  background: transparent;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+
+  &:hover {
+    text-decoration: underline;
   }
 }
 </style>
