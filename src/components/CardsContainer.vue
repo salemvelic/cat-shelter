@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/html-self-closing -->
 <template>
   <section class="d-flex flex-direction-column">
     <div class="edit-container">
