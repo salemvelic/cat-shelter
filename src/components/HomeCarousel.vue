@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/html-self-closing -->
 <template>
-  <div class="d-flex justify-content-center">
+  <div class="wrapper">
     <div
       v-if="loading"
       class="spinner-loader"
@@ -183,6 +183,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 236px;
+}
 .carousel {
   width: 100%;
   max-width: 720px;
