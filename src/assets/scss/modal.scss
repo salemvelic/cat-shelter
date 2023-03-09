@@ -46,3 +46,11 @@
   align-items: center;
   justify-content: center;
 }
+
+.btn-close {
+  justify-self: end;
+
+  &:hover {
+    font-weight: 600;
+  }
+}

@@ -120,7 +120,7 @@
               </div>
               <button
                 class="btn btn-primary"
-                @click="adoptKitten(cat.id)"
+                @click="showModal(cat)"
               >
                 Take me home
               </button>
@@ -140,20 +140,29 @@
         </button>
       </div>
     </div>
+    <modal-confirmation
+      v-model="showConfirmation"
+      :value="showConfirmation"
+      :selected-cat="selectedCat"
+    />
   </section>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
+import ModalConfirmation from './modals/ModalConfirmation.vue';
 
 export default {
+  components: { ModalConfirmation },
   data() {
     return {
       loading: true,
       searchName: "",
+      selectedCat: {},
       sortBy: "months",
       sortOrder: "asc",
       showAllCats: false,
+      showConfirmation: false,
       filters: {
         lessThanSixMonths: false,
         lessThanTwelveMonths: false,
@@ -203,12 +212,6 @@ export default {
     this.loading = true;
   },
   methods: {
-    ...mapActions(['removeCatById']),
-
-    adoptKitten(id) {
-      this.removeCatById(id);
-    },
-
     sortCats(filteredCats) {
 
       // Sort by name or age, depending on the value of sortBy
@@ -224,6 +227,11 @@ export default {
       }
 
       return filteredCats;
+    },
+
+    showModal(cat) {
+      this.showConfirmation = true;
+      this.selectedCat = cat;
     },
 
     showMoreResetFilters() {

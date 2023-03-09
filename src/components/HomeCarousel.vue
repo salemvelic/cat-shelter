@@ -58,7 +58,7 @@
 import { mapGetters } from 'vuex';
 import ChevronLeft from './icons/ChevronLeft.vue';
 import ChevronRight from './icons/ChevronRight.vue';
-import ModalCatInfo from './ModalCatInfo.vue';
+import ModalCatInfo from './modals/ModalCatInfo.vue';
 
 export default {
   components: { ChevronLeft, ChevronRight, ModalCatInfo },
